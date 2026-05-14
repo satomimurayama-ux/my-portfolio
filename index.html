@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>村山里美 Satomi | デザイン制作・ライティング</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+    :root {
+      --pink-light: #fdf0f3;
+      --pink-soft: #f7d9e3;
+      --pink-mid: #e8a5bc;
+      --pink-deep: #c97a9a;
+      --rose: #d4698a;
+      --cream: #fefaf7;
+      --warm-white: #fff8f5;
+      --text-dark: #4a3840;
+      --text-mid: #7a5c68;
+      --text-light: #a88898;
+      --gold: #c9a96e;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.8;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--pink-light) 0%, var(--warm-white) 60%, #fde8ef 100%);
+      padding: 44px 20px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(232,165,188,0.25) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: -40px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(247,217,227,0.3) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-photo-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .hero-photo-wrap::before {
+      content: '';
+      position: absolute;
+      top: -8px; left: -8px; right: -8px; bottom: -8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink-mid), var(--pink-soft), var(--gold));
+      z-index: 0;
+    }
+
+    .hero-photo {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+      border: 4px solid white;
+      display: block;
+    }
+
+    .hero-en-name {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 15px;
+      letter-spacing: 2px;
+      color: var(--pink-deep);
+      margin-bottom: 8px;
+      font-weight: 300;
+    }
+
+    .hero-name {
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 14px;
+      letter-spacing: 1px;
+    }
+
+    .hero-tagline {
+      font-size: 17px;
+      color: var(--text-mid);
+      max-width: 500px;
+      margin: 0 auto 22px;
+      line-height: 2;
+      word-break: keep-all;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .tag {
+      background: white;
+      border: 1px solid var(--pink-soft);
+      color: var(--rose);
+      font-size: 15px;
+      padding: 7px 18px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== NAV DOTS ===== */
+    .section-divider {
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .section-divider span {
+      display: inline-block;
+      width: 40px;
+      height: 1px;
+      background: var(--pink-mid);
+      vertical-align: middle;
+      margin: 0 8px;
+    }
+
+    .section-divider .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--pink-deep);
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* ===== SECTION COMMON ===== */
+    section {
+      padding: 36px 20px;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .section-title .en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-style: italic;
+      color: var(--pink-deep);
+      display: block;
+      line-height: 1;
+    }
+
+    .section-title .ja {
+      font-size: 15px;
+      color: var(--text-light);
+      letter-spacing: 3px;
+      display: block;
+      margin-top: 6px;
+    }
+
+    /* ===== ABOUT ===== */
+    .about-card {
+      background: white;
+      border-radius: 20px;
+      padding: 28px 28px;
+      box-shadow: 0 4px 24px rgba(201,122,154,0.08);
+      border: 1px solid var(--pink-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-card::before {
+      content: '"';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 120px;
+      color: var(--pink-soft);
+      position: absolute;
+      top: -10px;
+      left: 16px;
+      line-height: 1;
+    }
+
+    .about-text {
+      font-size: 18px;
+      color: var(--text-mid);
+      line-height: 2.1;
+      position: relative;
+      z-index: 1;
+      word-break: keep-all;
+    }
+
+    .about-text p + p {
+      margin-top: 16px;
+    }
+
+    /* ===== SERVICES ===== */
+    .services-bg {
+      background: linear-gradient(180deg, var(--pink-light) 0%, var(--warm-white) 100%);
+      padding: 36px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .services-title {
+      width: 100%;
+      max-width: 820px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      width: min(100%, 820px);
+      max-width: 820px;
+      margin-left: auto;
+      margin-right: auto;
+      justify-content: center;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 16px;
+      padding: 28px 28px;
+      text-align: center;
+      min-width: 0;
+      border: 1px solid var(--pink-soft);
+      box-shadow: 0 2px 16px rgba(201,122,154,0.07);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(201,122,154,0.14);
+    }
+
+    .service-icon {
+      font-size: 32px;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .service-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+
+    .service-desc {
+      font-size: 15.5px;
+      color: var(--text-light);
+      line-height: 1.9;
+      overflow-wrap: anywhere;
+    }
+
+    /* ===== SKILLS ===== */
+    .skills-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 600px) {
+      .skills-layout { grid-template-columns: 1fr; }
+    }
+
+    .skill-block {
+      background: white;
+      border-radius: 16px;
+      padding: 20px 20px;
+      border: 1px solid var(--pink-soft);
+      box-shadow: 0 2px 14px rgba(201,122,154,0.06);
+    }
+
+    .skill-block-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--rose);
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1.5px solid var(--pink-soft);
+    }
+
+    .skill-item {
+      font-size: 16.5px;
+      color: var(--text-mid);
+      padding: 6px 0;
+      padding-left: 18px;
+      position: relative;
+      word-break: keep-all;
+    }
+
+    .skill-item::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--pink-mid);
+      font-size: 10px;
+      top: 8px;
+    }
+
+    /* ===== MERITS ===== */
+    .merits-bg {
+      background: linear-gradient(180deg, var(--warm-white) 0%, var(--pink-light) 100%);
+      padding: 36px 20px;
+    }
+
+    .merits-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      width: 100%;
+    }
+
+    .merits-list .merit-item:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      max-width: calc(50% - 8px);
+      margin: 0 auto;
+    }
+
+    .merit-item {
+      background: white;
+      border-radius: 14px;
+      padding: 16px 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      border: 1px solid var(--pink-soft);
+      box-shadow: 0 2px 12px rgba(201,122,154,0.06);
+    }
+
+    .merit-check {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--pink-mid), var(--rose));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .merit-text {
+      font-size: 16.5px;
+      color: var(--text-mid);
+      line-height: 1.8;
+      overflow-wrap: break-word;
+    }
+
+    /* ===== TOOLS ===== */
+    .tools-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .tool-badge {
+      background: white;
+      border: 1.5px solid var(--pink-soft);
+      color: var(--text-mid);
+      font-size: 16px;
+      padding: 9px 20px;
+      border-radius: 30px;
+      font-weight: 500;
+    }
+
+    /* ===== AVAILABILITY ===== */
+    .avail-card {
+      background: linear-gradient(135deg, #fff5f8, white);
+      border-radius: 20px;
+      padding: 24px 28px;
+      border: 1px solid var(--pink-soft);
+      box-shadow: 0 4px 20px rgba(201,122,154,0.08);
+      text-align: center;
+    }
+
+    .avail-item {
+      font-size: 17.5px;
+      color: var(--text-mid);
+      padding: 12px 0;
+      border-bottom: 1px dashed var(--pink-soft);
+      word-break: keep-all;
+    }
+
+    .avail-item:last-child { border-bottom: none; }
+
+    .avail-label {
+      font-weight: 700;
+      color: var(--rose);
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    /* ===== MESSAGE ===== */
+    .message-bg {
+      background: linear-gradient(135deg, var(--pink-light), var(--warm-white));
+      padding: 36px 20px;
+    }
+
+    .message-card {
+      max-width: 760px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 44px 52px;
+      text-align: center;
+      border: 1px solid var(--pink-soft);
+      box-shadow: 0 4px 24px rgba(201,122,154,0.1);
+    }
+
+    .message-photo {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 20px;
+      display: block;
+      border: 3px solid var(--pink-soft);
+    }
+
+    .message-text {
+      font-size: 18px;
+      color: var(--text-mid);
+      line-height: 2.1;
+      overflow-wrap: break-word;
+    }
+
+    .message-sign {
+      margin-top: 16px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: var(--pink-deep);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--text-dark);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 24px 20px;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    footer .footer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: var(--pink-soft);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .merits-list { grid-template-columns: 1fr; }
+      .merits-list .merit-item:last-child:nth-child(odd) {
+        grid-column: auto;
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-name { font-size: 28px; }
+      .hero-tagline { font-size: 15.5px; }
+      .about-card { padding: 28px 20px; }
+      .about-text { font-size: 16.5px; }
+      section { padding: 32px 16px; }
+      .service-card { padding: 22px 20px; }
+      .service-desc { font-size: 14.5px; }
+      .merit-text { font-size: 15.5px; }
+      .message-card { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-photo-wrap">
+      <img
+        src="profile.png"
+        alt="Satomi プロフィール写真"
+        class="hero-photo"
+      >
+    </div>
+    <p class="hero-en-name">フリーランス ／ デザイン制作・ライティング</p>
+    <h1 class="hero-name">村山 里美 <span style="font-size:20px;font-weight:400;color:var(--text-light);">Satomi</span></h1>
+    <p class="hero-tagline">
+      外資系航空会社で培ったホスピタリティと丁寧なコミュニケーション力で<br>クライアント様のビジネスを心を込めてサポートいたします。
+    </p>
+    <div class="hero-tags">
+      <span class="tag">デザイン制作</span>
+      <span class="tag">LP制作</span>
+      <span class="tag">Web制作</span>
+      <span class="tag">ライティング</span>
+      <span class="tag">英語対応可</span>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section>
+    <div class="section-title">
+      <span class="en">About Me</span>
+      <span class="ja">自己紹介</span>
+    </div>
+    <div class="about-card">
+      <div class="about-text">
+        <p>はじめまして、Satomiと申します。ご依頼いただいた業務には丁寧かつ迅速に対応し納期厳守を徹底しております。クライアント様とのコミュニケーションを大切にし<br>ご意図を正確に汲み取った上で最適なご提案を行います。</p>
+        <p>外資系航空会社にて接客業務およびマネジメント業務に従事し、顧客対応力・チーム統括・プロジェクト管理の経験を積んでまいりました。これらの経験を活かし<br>好印象を与える表現や設計を意識したデザイン・文章制作を行っております。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <div class="services-bg">
+    <div class="section-title services-title">
+      <span class="en">Services</span>
+      <span class="ja">対応可能な業務</span>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">🎨</span>
+        <p class="service-title">バナー・SNS画像制作</p>
+        <p class="service-desc">バナーやSNS投稿画像を<br>ご要望に合わせてデザインします</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📄</span>
+        <p class="service-title">LP制作</p>
+        <p class="service-desc">ランディングページのデザイン・制作を<br>ご要望に合わせて承ります</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🌐</span>
+        <p class="service-title">Webページ制作</p>
+        <p class="service-desc">Webページ制作を通じて<br>伝わりやすく印象に残る設計を意識します</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🌸</span>
+        <p class="service-title">ライティング</p>
+        <p class="service-desc">サービスの魅力や想いが伝わる<br>自然で読みやすい文章制作を提供します</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+
+  <section>
+    <div class="section-title">
+      <span class="en">Skills &amp; Experience</span>
+      <span class="ja">スキル・経験</span>
+    </div>
+    <div class="skills-layout">
+      <div class="skill-block">
+        <p class="skill-block-title">経験</p>
+        <p class="skill-item">外資系企業にて接客業務に従事</p>
+        <p class="skill-item">プロジェクトマネージャーとして進行管理を担当</p>
+        <p class="skill-item">チームマネージャーとしてメンバーの統括・育成を経験</p>
+        <p class="skill-item">採用試験の面接官を経験</p>
+      </div>
+      <div class="skill-block">
+        <p class="skill-block-title">スキル</p>
+        <p class="skill-item">丁寧な顧客対応とヒアリング</p>
+        <p class="skill-item">顧客ニーズを汲み取るコミュニケーション力</p>
+        <p class="skill-item">プロジェクト管理・進行管理</p>
+      </div>
+      <div class="skill-block">
+        <p class="skill-block-title">得意ジャンル</p>
+        <p class="skill-item">サービスの魅力を伝えるコンテンツ制作</p>
+        <p class="skill-item">ホスピタリティ視点を活かしたLP・Web制作</p>
+        <p class="skill-item">海外からのお客様のニーズを踏まえたインバウンド向け集客</p>
+        <p class="skill-item">集客・印象設計</p>
+      </div>
+      <div class="skill-block">
+        <p class="skill-block-title">勉強中</p>
+        <p class="skill-item">Webマーケティング</p>
+        <p class="skill-item">UI / UXデザイン</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <div style="background:var(--pink-light);padding:36px 20px;text-align:center;">
+    <div class="section-title">
+      <span class="en">Tools</span>
+      <span class="ja">使用ツール</span>
+    </div>
+    <div class="tools-wrap">
+      <span class="tool-badge">ChatGPT</span>
+      <span class="tool-badge">Gemini</span>
+      <span class="tool-badge">Claude</span>
+      <span class="tool-badge">Codex</span>
+      <span class="tool-badge">Canva</span>
+      <span class="tool-badge">WordPress</span>
+      <span class="tool-badge">ChatWork</span>
+      <span class="tool-badge">Slack</span>
+      <span class="tool-badge">Zoom</span>
+      <span class="tool-badge">Google Meet</span>
+    </div>
+  </div>
+
+  <!-- MERITS -->
+  <div class="merits-bg">
+    <div style="max-width:820px;margin:0 auto;">
+      <div class="section-title">
+        <span class="en">Why Choose Me</span>
+        <span class="ja">ご依頼いただくメリット</span>
+      </div>
+      <div class="merits-list">
+        <div class="merit-item">
+          <div class="merit-check">✓</div>
+          <p class="merit-text">丁寧なヒアリングでご要望を正確に反映</p>
+        </div>
+        <div class="merit-item">
+          <div class="merit-check">✓</div>
+          <p class="merit-text">迅速なレスポンスと納期厳守で安心の進行</p>
+        </div>
+        <div class="merit-item">
+          <div class="merit-check">✓</div>
+          <p class="merit-text">外資系航空会社で培った高いコミュニケーション力</p>
+        </div>
+        <div class="merit-item">
+          <div class="merit-check">✓</div>
+          <p class="merit-text">ホスピタリティを活かした提案力</p>
+        </div>
+        <div class="merit-item">
+          <div class="merit-check">✓</div>
+          <p class="merit-text">プロジェクトマネージャー経験による円滑な進行管理</p>
+        </div>
+        <div class="merit-item">
+          <div class="merit-check">✓</div>
+          <p class="merit-text">柔軟な対応と修正力でご満足いただけるまで対応</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AVAILABILITY -->
+  <section>
+    <div class="section-title">
+      <span class="en">Availability</span>
+      <span class="ja">稼働・連絡について</span>
+    </div>
+    <div class="avail-card">
+      <div class="avail-item">
+        <span class="avail-label">稼働時間</span>週15〜20時間対応可能
+      </div>
+      <div class="avail-item">
+        <span class="avail-label">返信目安</span>メッセージは15時間以内にご返信いたします
+      </div>
+      <div class="avail-item">
+        <span class="avail-label">連絡ツール</span>ChatWork・Slack・Zoom
+      </div>
+      <div class="avail-item">
+        <span class="avail-label">納期管理</span>スケジュール管理を徹底し、安心してお任せいただけます
+      </div>
+    </div>
+  </section>
+
+  <!-- MESSAGE -->
+  <div class="message-bg">
+    <div class="section-title">
+      <span class="en">Message</span>
+      <span class="ja">仕事への想い</span>
+    </div>
+    <div class="message-card">
+      <img
+        src="message-profile.png"
+        alt="Satomi"
+        class="message-photo"
+      >
+      <p class="message-text">
+        LPやWeb制作を通じて、クライアント様のビジネスを丁寧に<br>サポートしたいと考えております。
+      </p>
+      <p class="message-text" style="margin-top:16px;">
+        外資系航空会社で世界中のインバウンド客に接してきた経験から<br>特にインバウンド戦略を考えていらっしゃる方の<br>心強いビジネスパートナーになれると考えております。
+      </p>
+      <p class="message-text" style="margin-top:16px;">
+        一つひとつのご依頼に真摯に向き合い<br>成果につながるご提案と丁寧な対応を大切にしております。<br>どうぞお気軽にご相談ください。
+      </p>
+      <p class="message-sign">— Satomi —</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-name">Satomi Murayama</span>
+    デザイン制作・ライティング
+  </footer>
+
+</body>
+</html>
