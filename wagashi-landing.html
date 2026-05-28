@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en" class="lang-en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wagashi Experience | 和菓子体験スタジオ</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --beige: #f5f0e8; --beige-dark: #ede4d0;
+      --green: #2d4a3e; --green-light: #3d6b5a;
+      --black: #1a1a1a; --gray: #6b6b6b;
+      --white: #ffffff; --gold: #9a7c4f;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Georgia', 'Hiragino Mincho ProN', 'Yu Mincho', '游明朝', serif;
+      background: var(--beige); color: var(--black); line-height: 1.7;
+    }
+
+    /* ── Language switch ── */
+    html.lang-en .t-ja { display: none !important; }
+    html.lang-ja .t-en { display: none !important; }
+
+    /* ── Type ── */
+    .label {
+      font-family: 'Arial', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold);
+    }
+    h2 { font-size: clamp(1.6rem,4vw,2.4rem); font-weight: normal; color: var(--black); line-height: 1.3; }
+    .divider { width: 40px; height: 2px; background: var(--gold); margin: 1.2rem auto 2rem; }
+    .divider.left { margin-left: 0; }
+
+    /* ── Button ── */
+    .btn {
+      display: inline-block; padding: 0.85rem 2.4rem;
+      font-family: 'Arial', 'Hiragino Sans', sans-serif;
+      font-size: 0.8rem; letter-spacing: 0.15em; text-decoration: none; border: none; cursor: pointer;
+      transition: background .3s, color .3s, transform .2s;
+    }
+    .btn-primary { background: var(--green); color: var(--white); }
+    .btn-primary:hover { background: var(--green-light); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--white); border: 1px solid var(--white); }
+    .btn-outline:hover { background: var(--white); color: var(--green); transform: translateY(-2px); }
+
+    /* ── Layout ── */
+    .section { padding: 90px 24px; }
+    .container { max-width: 1080px; margin: 0 auto; }
+    .text-center { text-align: center; }
+    .section-header { margin-bottom: 3.5rem; }
+
+    /* ══ NAV ══ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 40px;
+      background: rgba(245,240,232,.93); backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(154,124,79,.2);
+    }
+    .nav-logo { font-size: 1.1rem; letter-spacing: .1em; color: var(--black); text-decoration: none; }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Arial', 'Hiragino Sans', sans-serif;
+      font-size: .75rem; letter-spacing: .12em; text-decoration: none; color: var(--black); transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .lang-switcher { display: flex; align-items: center; }
+    .lang-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: 'Arial', sans-serif; font-size: .75rem; letter-spacing: .1em;
+      color: var(--gray); padding: .3rem .5rem; transition: color .2s;
+    }
+    .lang-btn.active { color: var(--green); font-weight: bold; }
+    .lang-btn:hover { color: var(--black); }
+    .lang-sep { color: var(--beige-dark); }
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+    }
+
+    /* ══ HERO ══ */
+    #hero {
+      min-height: 100vh; position: relative;
+      background:
+        linear-gradient(rgba(26,26,26,.58),rgba(26,26,26,.4)),
+        url('https://images.unsplash.com/photo-1755184108643-a8ee184ce542?w=1600&q=80') center/cover no-repeat;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 24px 80px;
+    }
+    .hero-inner { max-width: 700px; }
+    .hero-label {
+      font-family: 'Arial', 'Hiragino Sans', sans-serif;
+      font-size: .7rem; letter-spacing: .3em; text-transform: uppercase;
+      color: rgba(255,255,255,.65); margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-size: clamp(2rem,6vw,3.6rem); font-weight: normal;
+      color: var(--white); line-height: 1.2; margin-bottom: 1rem;
+    }
+    .hero-sub {
+      font-size: clamp(.95rem,2.5vw,1.2rem); color: rgba(255,255,255,.75);
+      margin-bottom: 2.5rem; font-style: italic;
+    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .scroll-cue {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: .45;
+    }
+    .scroll-cue span {
+      font-family: 'Arial', sans-serif; font-size: .6rem; letter-spacing: .2em; color: var(--white);
+    }
+    .scroll-line {
+      width: 1px; height: 40px; background: var(--white);
+      animation: scrollAnim 1.6s ease-in-out infinite;
+    }
+    @keyframes scrollAnim {
+      0%   { transform: scaleY(0); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: top; }
+      51%  { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ══ SHOWCASE ══ */
+    #showcase { background: var(--black); }
+    .showcase-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); height: 520px;
+    }
+    .showcase-item { position: relative; overflow: hidden; }
+    .showcase-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: brightness(.6) saturate(.8) contrast(1.1);
+      transition: filter .6s ease, transform .7s ease;
+    }
+    .showcase-item:hover img {
+      filter: brightness(.78) saturate(1.05) contrast(1.05);
+      transform: scale(1.05);
+    }
+    .showcase-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(transparent 35%, rgba(0,0,0,.72) 100%);
+    }
+    .showcase-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 2rem 2rem 2.5rem;
+    }
+    .sc-label {
+      font-family: 'Arial','Hiragino Sans',sans-serif;
+      font-size: .62rem; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--gold); display: block; margin-bottom: .5rem;
+    }
+    .showcase-caption h3 {
+      font-size: clamp(1.1rem,2.5vw,1.5rem); font-weight: normal;
+      color: var(--white); line-height: 1.2; margin-bottom: .3rem;
+    }
+    .showcase-caption .sc-sub {
+      font-size: .8rem; letter-spacing: .18em;
+      color: rgba(255,255,255,.45); display: block;
+    }
+    .showcase-divider {
+      width: 28px; height: 1px; background: var(--gold); opacity: .6;
+      margin: .6rem 0;
+    }
+    @media (max-width: 640px) {
+      .showcase-grid { grid-template-columns: 1fr; height: auto; }
+      .showcase-item { height: 280px; }
+    }
+
+    /* ══ CONCEPT ══ */
+    #concept { background: var(--white); }
+    .concept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .concept-img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; filter: brightness(.82) saturate(.88) contrast(1.05); }
+    .concept-text .label { margin-bottom: 1rem; }
+    .concept-text p { color: var(--gray); font-size: 1rem; margin-top: 1.2rem; max-width: 440px; }
+    .concept-stat { display: flex; gap: 2.5rem; margin-top: 2.4rem; }
+    .stat-num { font-size: 2rem; color: var(--green); display: block; }
+    .stat-desc {
+      font-family: 'Arial', 'Hiragino Sans', sans-serif;
+      font-size: .72rem; letter-spacing: .08em; color: var(--gray); display: block;
+    }
+    @media (max-width: 768px) {
+      .concept-grid { grid-template-columns: 1fr; gap: 36px; }
+      .concept-img { aspect-ratio: 16/9; }
+    }
+
+    /* ══ SERVICES ══ */
+    #services { background: var(--beige); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 2px; }
+    .service-card {
+      background: var(--white); padding: 2.4rem 2rem;
+      display: flex; flex-direction: column;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,.08); position: relative; z-index: 1; }
+    .service-icon {
+      width: 48px; height: 48px; margin-bottom: 1.4rem;
+      display: flex; align-items: center;
+    }
+    .service-icon svg { width: 100%; height: 100%; }
+    .service-card h3 {
+      min-height: 4.2rem;
+      font-size: 1.05rem; font-weight: normal; line-height: 1.7; margin-bottom: .5rem;
+    }
+    .service-card p {
+      font-family: 'Arial', 'Hiragino Sans', sans-serif;
+      font-size: .8rem; color: var(--gray); line-height: 1.65;
+    }
+
+    /* ══ REASONS ══ */
+    #reasons { background: var(--green); color: var(--white); }
+    #reasons h2 { color: var(--white); }
+    #reasons .divider { background: rgba(255,255,255,.35); }
+    .reasons-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 2.5rem; margin-top: 3rem; }
+    .reason-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+    .reason-num { font-size: 2.5rem; color: rgba(255,255,255,.18); line-height: 1; flex-shrink: 0; font-weight: bold; }
+    .reason-item h3 { font-size: 1rem; font-weight: normal; margin-bottom: .4rem; color: var(--white); }
+    .reason-item p {
+      font-family: 'Arial', 'Hiragino Sans', sans-serif;
+      font-size: .78rem; color: rgba(255,255,255,.65); line-height: 1.7;
+    }
+
+    /* ══ STEPS ══ */
+    #steps { background: var(--beige-dark); }
+    #steps h2 {
+      font-family: 'Hiragino Sans', 'Yu Gothic', 'Arial', sans-serif;
+      letter-spacing: 0;
+    }
+    #steps h2 span { display: inline-block; white-space: nowrap; }
+    .steps-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: clamp(1rem,4vw,4rem); position: relative; margin-top: 3rem;
+    }
+    .steps-row::before {
+      content: ''; position: absolute; top: 36px;
+      left: calc(100% / 6); right: calc(100% / 6);
+      height: 1px; background: var(--gold); opacity: .4;
+    }
+    .step {
+      display: flex; flex-direction: column; align-items: center;
+      flex: 1 1 0; min-width: 0;
+      text-align: center; padding: 0 clamp(.5rem,2vw,2rem); position: relative;
+    }
+    .step-circle {
+      width: 72px; height: 72px; border-radius: 50%;
+      border: 1px solid var(--gold); background: var(--beige-dark);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.6rem; font-size: 1.4rem; color: var(--gold); position: relative; z-index: 1;
+      line-height: 1;
+    }
+    .step:nth-child(3) .step-circle { transform: translateY(-1px); }
+    .step h3 {
+      font-family: 'Arial', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+      font-size: 1.05rem; font-weight: normal;
+      line-height: 1.35; margin-bottom: .5rem; letter-spacing: 0;
+    }
+    .step h3 span { display: inline-block; white-space: nowrap; }
+    .step p {
+      font-family: 'Arial', 'Hiragino Sans', sans-serif;
+      font-size: .78rem; color: var(--gray); line-height: 1.65;
+    }
+    @media (max-width: 640px) {
+      #steps .section-header { margin-bottom: 2rem; }
+      #steps h2 { font-size: clamp(1.45rem,7vw,2rem); }
+      .steps-row {
+        display: grid; grid-template-columns: repeat(3,minmax(0,1fr));
+        gap: .4rem; overflow: visible; padding-bottom: 0;
+      }
+      .steps-row::before { display: none; }
+      .step { padding: 0 .15rem; }
+      .step-circle {
+        width: 46px; height: 46px; margin-bottom: .85rem; font-size: .95rem;
+      }
+      .step:nth-child(3) .step-circle { transform: translateY(-2px); }
+      .step h3 { font-size: clamp(.66rem,2.3vw,.9rem); }
+      .step p { font-size: clamp(.58rem,2vw,.74rem); line-height: 1.55; }
+    }
+
+    /* ══ REVIEWS ══ */
+    #reviews { background: var(--white); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .review-card { background: var(--beige); padding: 2rem; border-left: 3px solid var(--gold); }
+    .stars { color: var(--gold); font-size: .85rem; letter-spacing: 2px; margin-bottom: 1rem; }
+    .review-card blockquote { font-size: .95rem; font-style: italic; color: var(--black); line-height: 1.7; margin-bottom: 1.2rem; }
+    .reviewer { font-family: 'Arial', 'Hiragino Sans', sans-serif; font-size: .75rem; color: var(--gray); }
+    .reviewer strong { color: var(--black); display: block; margin-bottom: 2px; }
+
+    /* ══ CTA ══ */
+    #cta {
+      background:
+        linear-gradient(rgba(26,26,26,.6),rgba(26,26,26,.6)),
+        url('https://images.unsplash.com/photo-1708572727896-117b5ea25a86?w=1400&q=80') center/cover no-repeat;
+      text-align: center; padding: 120px 24px;
+    }
+    #cta .label { color: rgba(255,255,255,.55); margin-bottom: 1rem; }
+    #cta h2 { color: var(--white); font-size: clamp(1.8rem,4vw,3rem); margin-bottom: 1.5rem; }
+    #cta p {
+      font-family: 'Arial', 'Hiragino Sans', sans-serif;
+      font-size: .85rem; color: rgba(255,255,255,.65);
+      margin-bottom: 2.5rem; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.8;
+    }
+
+    /* ══ FOOTER ══ */
+    footer {
+      background: var(--black); color: rgba(255,255,255,.5);
+      text-align: center; padding: 2.5rem 24px;
+      font-family: 'Arial', 'Hiragino Sans', sans-serif; font-size: .72rem; letter-spacing: .08em;
+    }
+    footer a { color: rgba(255,255,255,.5); text-decoration: none; }
+    .footer-logo { font-family: 'Georgia','Hiragino Mincho ProN',serif; font-size: 1rem; color: var(--white); margin-bottom: .6rem; display: block; }
+    .footer-logo span { color: var(--gold); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Wa<span>.</span>Gashi</a>
+  <ul class="nav-links">
+    <li><a href="#concept"><span class="t-en">About</span><span class="t-ja">私たちについて</span></a></li>
+    <li><a href="#services"><span class="t-en">Experience</span><span class="t-ja">体験内容</span></a></li>
+    <li><a href="#steps"><span class="t-en">How it works</span><span class="t-ja">ご利用の流れ</span></a></li>
+    <li><a href="#reviews"><span class="t-en">Reviews</span><span class="t-ja">お客様の声</span></a></li>
+    <li><a href="#cta"><span class="t-en">Book</span><span class="t-ja">ご予約</span></a></li>
+  </ul>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+    <span class="lang-sep">|</span>
+    <button class="lang-btn" data-lang="ja" onclick="setLang('ja')">JP</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <p class="hero-label">
+      <span class="t-en">Tokyo, Japan &nbsp;·&nbsp; Wagashi Studio &amp; Café</span>
+      <span class="t-ja">東京・日本 &nbsp;·&nbsp; 和菓子スタジオ＆和カフェ</span>
+    </p>
+    <h1 class="hero-title">
+      <span class="t-en">Matcha Roll Cake &amp;<br>Nerikashi Experience</span>
+      <span class="t-ja">抹茶ロールケーキと<br>練り菓子体験</span>
+    </h1>
+    <p class="hero-sub">
+      <span class="t-en">Craft Japanese sweets &amp; relax in our wagashi café</span>
+      <span class="t-ja">和菓子づくり体験と、和カフェでくつろぐひとときを</span>
+    </p>
+    <div class="hero-btns">
+      <a href="#cta" class="btn btn-primary">
+        <span class="t-en">Book Now</span><span class="t-ja">今すぐ予約</span>
+      </a>
+      <a href="#concept" class="btn btn-outline">
+        <span class="t-en">Learn More</span><span class="t-ja">詳しく見る</span>
+      </a>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section id="showcase">
+  <div class="showcase-grid">
+
+    <div class="showcase-item">
+      <img src="https://images.unsplash.com/photo-1627308592778-290a1ec030da?w=800&q=85"
+           alt="Matcha Roll Cake" loading="lazy" />
+      <div class="showcase-overlay"></div>
+      <div class="showcase-caption">
+        <span class="sc-label t-en">Signature Sweet</span>
+        <span class="sc-label t-ja">看板メニュー</span>
+        <h3>
+          <span class="t-en">Matcha Roll Cake</span>
+          <span class="t-ja">抹茶ロールケーキ</span>
+        </h3>
+        <div class="showcase-divider"></div>
+        <span class="sc-sub t-en">抹茶ロールケーキ</span>
+        <span class="sc-sub t-ja">Matcha Roll Cake</span>
+      </div>
+    </div>
+
+    <div class="showcase-item">
+      <img src="https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?w=800&q=85"
+           alt="Nerikashi" loading="lazy" />
+      <div class="showcase-overlay"></div>
+      <div class="showcase-caption">
+        <span class="sc-label t-en">Traditional Art</span>
+        <span class="sc-label t-ja">伝統工芸</span>
+        <h3><span class="t-en">Nerikashi</span><span class="t-ja">練り菓子</span></h3>
+        <div class="showcase-divider"></div>
+        <span class="sc-sub t-en">練り菓子 · Japanese Sweet</span>
+        <span class="sc-sub t-ja">伝統和菓子 · Nerikashi</span>
+      </div>
+    </div>
+
+    <div class="showcase-item">
+      <img src="https://images.unsplash.com/photo-1755184108650-e1e967d7609b?w=800&q=85"
+           alt="Matcha" loading="lazy" />
+      <div class="showcase-overlay"></div>
+      <div class="showcase-caption">
+        <span class="sc-label t-en">Tea Ceremony</span>
+        <span class="sc-label t-ja">茶道</span>
+        <h3>
+          <span class="t-en">Matcha</span>
+          <span class="t-ja">お抹茶</span>
+        </h3>
+        <div class="showcase-divider"></div>
+        <span class="sc-sub t-en">お抹茶</span>
+        <span class="sc-sub t-ja">Matcha</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONCEPT -->
+<section id="concept" class="section">
+  <div class="container">
+    <div class="concept-grid">
+      <img class="concept-img"
+        src="https://images.unsplash.com/photo-1758779527956-0da4cd6ca77d?w=900&q=80"
+        alt="Japanese wagashi sweets" />
+      <div class="concept-text">
+        <p class="label">
+          <span class="t-en">Our Concept</span>
+          <span class="t-ja">私たちのコンセプト</span>
+        </p>
+        <h2>
+          <span class="t-en">Where Tradition<br>Meets Artistry</span>
+          <span class="t-ja">伝統と芸術の<br>出会い</span>
+        </h2>
+        <div class="divider left"></div>
+        <p class="t-en">
+          Wagashi is the soul of Japanese tea culture — edible art shaped by the seasons and centuries of craft. Our studio specializes in two beloved forms: the delicate matcha roll cake and the sculptural art of nerikashi.
+        </p>
+        <p class="t-ja">
+          和菓子は日本の茶文化の魂——季節と何世紀にもわたる職人の技が生み出す食べられる芸術です。当スタジオは、なめらかな抹茶ロールケーキと、彫刻のような練り菓子という二つの体験を専門とします。
+        </p>
+        <p class="t-en" style="margin-top:1rem;">
+          No experience needed. All materials provided. Classes in English and Japanese — or simply visit our café and enjoy seasonal wagashi with freshly whisked matcha.
+        </p>
+        <p class="t-ja" style="margin-top:1rem;">
+          初心者の方も大歓迎。材料はすべてご用意しています。体験のほか、予約不要の和カフェで季節の和菓子とお抹茶をゆっくりお楽しみいただけます。
+        </p>
+        <div class="concept-stat">
+          <div>
+            <span class="stat-num">500+</span>
+            <span class="stat-desc t-en">Happy guests<br>per year</span>
+            <span class="stat-desc t-ja">年間体験者数</span>
+          </div>
+          <div>
+            <span class="stat-num">15+</span>
+            <span class="stat-desc t-en">Years of<br>tradition</span>
+            <span class="stat-desc t-ja">伝統の年数</span>
+          </div>
+          <div>
+            <span class="stat-num">4.9★</span>
+            <span class="stat-desc t-en">Average<br>rating</span>
+            <span class="stat-desc t-ja">平均評価</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="section-header text-center">
+      <p class="label">
+        <span class="t-en">What We Offer</span>
+        <span class="t-ja">体験メニュー</span>
+      </p>
+      <h2>
+        <span class="t-en">Our Experiences</span>
+        <span class="t-ja">ご体験内容</span>
+      </h2>
+      <div class="divider"></div>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#2d4a3e" stroke-width="1.5">
+            <ellipse cx="24" cy="26" rx="14" ry="6"/>
+            <path d="M10 26c0-6 6-12 14-12s14 6 14 12"/>
+            <path d="M10 26v4c0 3.3 6.3 6 14 6s14-2.7 14-6v-4"/>
+          </svg>
+        </div>
+        <h3>
+          <span class="t-en">Matcha Roll Cake Class</span>
+          <span class="t-ja">抹茶ロールケーキ教室</span>
+        </h3>
+        <p class="t-en">Bake a light, airy matcha sponge and fill it with silky matcha cream. Take home a beautifully crafted roll cake you made yourself.</p>
+        <p class="t-ja">ふわふわの抹茶スポンジを焼き、なめらかな抹茶クリームで仕上げたロールケーキを作ります。自分の手で作った一本をお持ち帰りいただけます。</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#2d4a3e" stroke-width="1.5">
+            <circle cx="24" cy="20" r="10"/>
+            <path d="M18 20c0-3.3 2.7-6 6-6"/>
+            <path d="M14 36c0-5.5 4.5-10 10-10s10 4.5 10 10"/>
+          </svg>
+        </div>
+        <h3>
+          <span class="t-en">Nerikiri Workshop</span>
+          <span class="t-ja">練り切りワークショップ</span>
+        </h3>
+        <p class="t-en">Shape seasonal motifs from silky nerikiri paste — the most iconic form of Japanese wagashi. No experience necessary.</p>
+        <p class="t-ja">絹のような練り切り餡から季節の美しい形を作り出す、和菓子の代表的な体験です。はじめての方も丁寧にご指導します。</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#2d4a3e" stroke-width="1.5">
+            <path d="M24 8l4 10h11l-9 6.5 3.5 10.5L24 28l-9.5 7 3.5-10.5L9 18h11z"/>
+          </svg>
+        </div>
+        <h3>
+          <span class="t-en">Seasonal Nerikashi</span>
+          <span class="t-ja">季節の練り菓子</span>
+        </h3>
+        <p class="t-en">Craft wagashi that reflect Japan's four seasons — from spring cherry blossoms to winter snowflakes — using traditional wooden molds.</p>
+        <p class="t-ja">春の桜から冬の雪の結晶まで、四季折々の練り菓子を伝統的な木型を使って作ります。</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#2d4a3e" stroke-width="1.5">
+            <path d="M14 20Q14 11 24 11Q34 11 34 20"/>
+            <path d="M10 20h28v3a14 10 0 01-28 0v-3z"/>
+            <path d="M24 33v7M18 40h12"/>
+            <path d="M34 22c3 0 6 1.5 6 5s-3 5-6 5"/>
+          </svg>
+        </div>
+        <h3>
+          <span class="t-en">Matcha Tea Ceremony Set</span>
+          <span class="t-ja">お抹茶茶道セット体験</span>
+        </h3>
+        <p class="t-en">Combine wagashi making with a traditional matcha tea ceremony for the ultimate Japanese cultural immersion.</p>
+        <p class="t-ja">和菓子作りと本格的なお抹茶の点て方を組み合わせた、日本文化を深く体験できる特別なプログラムです。</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#2d4a3e" stroke-width="1.5">
+            <path d="M10 20h28v13a10 10 0 01-20 0V20z"/>
+            <path d="M38 24c4 0 6 2 6 5s-2 5-6 5"/>
+            <path d="M6 42h36"/>
+            <path d="M17 14c0-3 3-4 3-7M27 14c0-3 3-4 3-7"/>
+          </svg>
+        </div>
+        <h3>
+          <span class="t-en">Wagashi Café</span>
+          <span class="t-ja">和カフェ</span>
+        </h3>
+        <p class="t-en">No booking needed — drop in and enjoy seasonal wagashi paired with matcha or houjicha in our relaxed Japanese café space.</p>
+        <p class="t-ja">予約不要でお気軽にどうぞ。季節の和菓子とお抹茶・ほうじ茶を、落ち着いた和の空間でゆったりとお楽しみいただける和カフェです。</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- REASONS -->
+<section id="reasons" class="section">
+  <div class="container">
+    <div class="section-header text-center">
+      <p class="label" style="color:rgba(255,255,255,.5);">
+        <span class="t-en">Why Choose Us</span>
+        <span class="t-ja">選ばれる理由</span>
+      </p>
+      <h2>
+        <span class="t-en">The Wa.Gashi Difference</span>
+        <span class="t-ja">Wa.Gashi の特徴</span>
+      </h2>
+      <div class="divider"></div>
+    </div>
+    <div class="reasons-grid">
+      <div class="reason-item">
+        <span class="reason-num">01</span>
+        <div>
+          <h3><span class="t-en">Certified Artisan Instructors</span><span class="t-ja">認定職人が指導</span></h3>
+          <p class="t-en">Every class is led by a nationally certified wagashi craftsperson with over a decade of experience.</p>
+          <p class="t-ja">すべてのクラスは、10年以上の経験を持つ国家認定の和菓子職人が担当します。</p>
+        </div>
+      </div>
+      <div class="reason-item">
+        <span class="reason-num">02</span>
+        <div>
+          <h3><span class="t-en">English &amp; Japanese Support</span><span class="t-ja">日英バイリンガル対応</span></h3>
+          <p class="t-en">All instruction and materials are available in both English and Japanese.</p>
+          <p class="t-ja">授業もテキストも日本語・英語のバイリンガルでご提供します。</p>
+        </div>
+      </div>
+      <div class="reason-item">
+        <span class="reason-num">03</span>
+        <div>
+          <h3><span class="t-en">Small Class Sizes</span><span class="t-ja">少人数制クラス</span></h3>
+          <p class="t-en">Maximum 10 guests per session so every participant receives personal, hands-on attention.</p>
+          <p class="t-ja">1回最大10名の少人数制。一人ひとりに丁寧な個別指導を行います。</p>
+        </div>
+      </div>
+      <div class="reason-item">
+        <span class="reason-num">04</span>
+        <div>
+          <h3><span class="t-en">Premium Uji Matcha</span><span class="t-ja">京都宇治産の厳選抹茶</span></h3>
+          <p class="t-en">We use only the finest seasonal ingredients, including ceremonial-grade Uji matcha from Kyoto.</p>
+          <p class="t-ja">京都宇治産の最高品質の抹茶をはじめ、旬の厳選素材のみを使用しています。</p>
+        </div>
+      </div>
+      <div class="reason-item">
+        <span class="reason-num">05</span>
+        <div>
+          <h3><span class="t-en">Central Tokyo Location</span><span class="t-ja">都心アクセス抜群</span></h3>
+          <p class="t-en">Our studio is a 5-minute walk from the nearest subway station, easily accessible from across Tokyo.</p>
+          <p class="t-ja">最寄り駅から徒歩5分。東京各方面からのアクセスも大変便利です。</p>
+        </div>
+      </div>
+      <div class="reason-item">
+        <span class="reason-num">06</span>
+        <div>
+          <h3><span class="t-en">Take Home Your Creations</span><span class="t-ja">作品はお持ち帰りOK</span></h3>
+          <p class="t-en">Every piece of wagashi you make is yours to keep, packaged in a beautiful handcrafted gift box.</p>
+          <p class="t-ja">お作りいただいた和菓子はすべてお持ち帰りいただけます。美しいギフトボックスに入れてお渡しします。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section id="steps" class="section">
+  <div class="container">
+    <div class="section-header text-center">
+      <p class="label">
+        <span class="t-en">How It Works</span>
+        <span class="t-ja">ご利用の流れ</span>
+      </p>
+      <h2>
+        <span class="t-en">Your Journey in 3 Steps</span>
+        <span class="t-ja">3つのステップで楽しむ</span>
+      </h2>
+      <div class="divider"></div>
+    </div>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-circle">&#10003;</div>
+        <h3><span class="t-en">Step 1 — Reserve</span><span class="t-ja">STEP 1 — ご予約</span></h3>
+        <p class="t-en">Choose your preferred date and experience type, then complete your booking online in under 2 minutes.</p>
+        <p class="t-ja">ご希望の日程と体験内容を<br>お選びいただき、2分以内で<br>オンライン予約が完了します。</p>
+      </div>
+      <div class="step">
+        <div class="step-circle">&#9998;</div>
+        <h3><span class="t-en">Step 2 — Create</span><span class="t-ja">STEP 2 — 制作体験</span></h3>
+        <p class="t-en">Arrive at our studio and spend 90 minutes crafting your matcha roll cake or nerikashi under expert guidance.</p>
+        <p class="t-ja">スタジオにお越しいただき<br>職人の指導のもとで<br>抹茶ロールケーキや<br>練り菓子を丁寧に作ります。</p>
+      </div>
+      <div class="step">
+        <div class="step-circle">&#9829;</div>
+        <h3><span class="t-en">Step 3 — Enjoy</span><span class="t-ja">STEP 3 — お楽しみ</span></h3>
+        <p class="t-en">Savor your creations with a cup of freshly whisked matcha, then take the rest home in a beautiful gift box.</p>
+        <p class="t-ja">できたての作品を点てたての<br>お抹茶とともに味わい<br>残りは美しいギフトボックスに入れて<br>お持ち帰りを。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="section">
+  <div class="container">
+    <div class="section-header text-center">
+      <p class="label">
+        <span class="t-en">Guest Reviews</span>
+        <span class="t-ja">お客様の声</span>
+      </p>
+      <h2>
+        <span class="t-en">What Visitors Say</span>
+        <span class="t-ja">ご来店されたお客様より</span>
+      </h2>
+      <div class="divider"></div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>
+          <span class="t-en">"The matcha roll cake session was extraordinary. Our instructor guided us step by step and the result was genuinely delicious. Highlight of our entire Japan trip!"</span>
+          <span class="t-ja">「抹茶ロールケーキのレッスンは本当に素晴らしかったです。先生が一つひとつ丁寧に教えてくださり、できたロールケーキはとっても美味しかった！日本旅行で一番の思い出です。」</span>
+        </blockquote>
+        <div class="reviewer">
+          <strong><span class="t-en">Sarah M.</span><span class="t-ja">Vivien</span></strong>
+          <span class="t-en">New York, USA &nbsp;·&nbsp; April 2025</span>
+          <span class="t-ja">USA &nbsp;·&nbsp; 2025年3月</span>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>
+          <span class="t-en">"I tried nerikiri shaping and could not believe how meditative and joyful it was. My cherry blossom wagashi looked almost professional. Highly recommend!"</span>
+          <span class="t-ja">「練り切り体験はとても集中できて楽しい時間でした。桜の形の練り切りが思いのほかプロっぽく仕上がって感動しました。友人にも絶対に勧めたいです！」</span>
+        </blockquote>
+        <div class="reviewer">
+          <strong><span class="t-en">James K.</span><span class="t-ja">鈴木 健太</span></strong>
+          <span class="t-en">London, UK &nbsp;·&nbsp; March 2025</span>
+          <span class="t-ja">大阪府 &nbsp;·&nbsp; 2025年2月</span>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>
+          <span class="t-en">"The tea ceremony set package was the highlight of our trip. Making wagashi then drinking matcha we whisked ourselves felt deeply authentic and peaceful."</span>
+          <span class="t-ja">「茶道セットパッケージは旅行のハイライトでした。自分で作った和菓子と、自分で点てたお抹茶をいただく体験は、心に深く残る素晴らしいものでした。」</span>
+        </blockquote>
+        <div class="reviewer">
+          <strong><span class="t-en">Chloé D.</span><span class="t-ja">渡辺 あかり</span></strong>
+          <span class="t-en">Paris, France &nbsp;·&nbsp; February 2025</span>
+          <span class="t-ja">神奈川県 &nbsp;·&nbsp; 2025年1月</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <p class="label">
+    <span class="t-en">Reserve Your Spot</span>
+    <span class="t-ja">ご予約はこちら</span>
+  </p>
+  <h2>
+    <span class="t-en">Ready to Create?</span>
+    <span class="t-ja">体験のご予約</span>
+  </h2>
+  <p class="t-en">
+    Classes run daily at 10:00 AM and 2:00 PM.<br>
+    Small groups fill up fast — secure your place today.
+  </p>
+  <p class="t-ja">
+    毎日10:00・14:00の2回開催。<br>
+    少人数制のため、お早めのご予約をおすすめします。
+  </p>
+  <a href="#" class="btn btn-primary">
+    <span class="t-en">Book Now</span><span class="t-ja">今すぐ予約</span>
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">Wa<span>.</span>Gashi Studio</span>
+  <p>
+    <span class="t-en">2-5-8 Yanaka, Taito-ku, Tokyo &nbsp;|&nbsp; <a href="mailto:hello@wagashi-studio.jp">hello@wagashi-studio.jp</a></span>
+    <span class="t-ja">東京都台東区谷中2-5-8 &nbsp;|&nbsp; <a href="mailto:hello@wagashi-studio.jp">hello@wagashi-studio.jp</a></span>
+  </p>
+  <p style="margin-top:.5rem;">
+    <span class="t-en">&copy; 2026 Wa.Gashi Studio. All rights reserved.</span>
+    <span class="t-ja">&copy; 2026 Wa.Gashi Studio. All rights reserved.</span>
+  </p>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.documentElement.lang = lang;
+    document.documentElement.className = 'lang-' + lang;
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    try { localStorage.setItem('wagashi-lang', lang); } catch(e) {}
+  }
+  (function() {
+    var saved;
+    try { saved = localStorage.getItem('wagashi-lang'); } catch(e) {}
+    setLang(saved || 'en');
+  })();
+</script>
+</body>
+</html>

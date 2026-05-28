@@ -89,7 +89,7 @@
       letter-spacing: 2px;
       color: var(--pink-deep);
       margin-bottom: 8px;
-      font-weight: 300;
+      font-weight: 700;
     }
 
     .hero-name {
@@ -279,6 +279,110 @@
       overflow-wrap: anywhere;
     }
 
+    /* ===== WORKS ===== */
+    .works-section {
+      max-width: 980px;
+    }
+
+    .works-list {
+      display: grid;
+      gap: 22px;
+    }
+
+    .work-card {
+      background: white;
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid var(--pink-soft);
+      box-shadow: 0 4px 24px rgba(201,122,154,0.08);
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .work-preview {
+      width: 100%;
+      height: 300px;
+      border: 1px solid var(--pink-soft);
+      border-radius: 14px;
+      background: var(--cream);
+      overflow: hidden;
+    }
+
+    .work-preview iframe {
+      width: 1440px;
+      height: 900px;
+      border: 0;
+      transform: scale(0.36);
+      transform-origin: top left;
+      pointer-events: none;
+    }
+
+    .work-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: var(--cream);
+    }
+
+    .work-label {
+      color: var(--rose);
+      font-size: 14px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .work-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .work-desc {
+      font-size: 16.5px;
+      color: var(--text-mid);
+      line-height: 1.9;
+      margin-bottom: 18px;
+    }
+
+    .work-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .work-tag {
+      background: var(--pink-light);
+      color: var(--rose);
+      border: 1px solid var(--pink-soft);
+      border-radius: 18px;
+      padding: 5px 12px;
+      font-size: 13.5px;
+      font-weight: 500;
+    }
+
+    .work-link {
+      display: inline-block;
+      background: var(--rose);
+      color: white;
+      text-decoration: none;
+      border-radius: 24px;
+      padding: 9px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .work-link:hover {
+      background: var(--pink-deep);
+      transform: translateY(-2px);
+    }
+
     /* ===== SKILLS ===== */
     .skills-layout {
       display: grid;
@@ -407,12 +511,17 @@
       text-align: center;
     }
 
+    .availability-section {
+      max-width: 980px;
+    }
+
     .avail-item {
       font-size: 17.5px;
       color: var(--text-mid);
       padding: 12px 0;
       border-bottom: 1px dashed var(--pink-soft);
       word-break: keep-all;
+      white-space: nowrap;
     }
 
     .avail-item:last-child { border-bottom: none; }
@@ -488,6 +597,9 @@
     /* ===== RESPONSIVE ===== */
     @media (max-width: 600px) {
       .services-grid { grid-template-columns: 1fr; }
+      .work-card { grid-template-columns: 1fr; }
+      .work-preview { height: 240px; }
+      .work-preview iframe { transform: scale(0.29); }
       .merits-list { grid-template-columns: 1fr; }
       .merits-list .merit-item:last-child:nth-child(odd) {
         grid-column: auto;
@@ -503,6 +615,7 @@
       section { padding: 32px 16px; }
       .service-card { padding: 22px 20px; }
       .service-desc { font-size: 14.5px; }
+      .avail-item { white-space: normal; }
       .merit-text { font-size: 15.5px; }
       .message-card { padding: 32px 24px; }
     }
@@ -519,15 +632,17 @@
         class="hero-photo"
       >
     </div>
-    <p class="hero-en-name">デザイン制作・ライティング</p>
-    <h1 class="hero-name">村山 里美 <span style="font-size:20px;font-weight:400;color:var(--text-light);">Satomi</span></h1>
+    <p class="hero-en-name">AIクリエイティブ &amp; ブランディングサポート<br>デザイン制作・ライティング・日英翻訳</p>
+    <h1 class="hero-name">村山 里美 <span style="font-size:20px;font-weight:400;color:var(--text-light);">Satomi Murayama</span></h1>
     <p class="hero-tagline">
       外資系航空会社で培ったホスピタリティと丁寧なコミュニケーション力で<br>クライアント様のビジネスを心を込めてサポートいたします。
     </p>
     <div class="hero-tags">
       <span class="tag">デザイン制作</span>
+      <span class="tag">LOGO制作</span>
       <span class="tag">LP制作</span>
       <span class="tag">Web制作</span>
+      <span class="tag">各種サロン様向け予約アプリ制作</span>
       <span class="tag">ライティング</span>
       <span class="tag">英語対応可</span>
     </div>
@@ -541,7 +656,7 @@
     </div>
     <div class="about-card">
       <div class="about-text">
-        <p>はじめまして、Satomiと申します。ご依頼いただいた業務には丁寧かつ迅速に対応し納期厳守を徹底しております。クライアント様とのコミュニケーションを大切にし<br>ご意図を正確に汲み取った上で最適なご提案を行います。</p>
+        <p>初めまして、村山里美と申します。ご依頼いただいた業務には丁寧かつ迅速に対応し納期厳守を徹底しております。クライアント様とのコミュニケーションを大切にし<br>ご意図を正確に汲み取った上で最適なご提案を行います。</p>
         <p>外資系航空会社にて接客業務およびマネジメント業務に従事し、顧客対応力・チーム統括・プロジェクト管理の経験を積んでまいりました。これらの経験を活かし<br>好印象を与える表現や設計を意識したデザイン・文章制作を行っております。</p>
       </div>
     </div>
@@ -560,6 +675,11 @@
         <p class="service-desc">バナーやSNS投稿画像を<br>ご要望に合わせてデザインします</p>
       </div>
       <div class="service-card">
+        <span class="service-icon">💎</span>
+        <p class="service-title">LOGO制作</p>
+        <p class="service-desc">ブランドの雰囲気や想いが伝わる<br>ロゴデザインを制作します</p>
+      </div>
+      <div class="service-card">
         <span class="service-icon">📄</span>
         <p class="service-title">LP制作</p>
         <p class="service-desc">ランディングページのデザイン・制作を<br>ご要望に合わせて承ります</p>
@@ -570,12 +690,59 @@
         <p class="service-desc">Webページ制作を通じて<br>伝わりやすく印象に残る設計を意識します</p>
       </div>
       <div class="service-card">
+        <span class="service-icon">📱</span>
+        <p class="service-title">各種サロン様向け予約アプリ制作</p>
+        <p class="service-desc">リピーターのお客様には２回目の来店予約を<br>自社のアプリで行っていただくことで収益を確保<br>外国のお客様にも英語で対応できる<br>予約アプリを作成します</p>
+      </div>
+      <div class="service-card">
         <span class="service-icon">🌸</span>
         <p class="service-title">ライティング</p>
-        <p class="service-desc">サービスの魅力や想いが伝わる<br>自然で読みやすい文章制作を提供します</p>
+        <p class="service-desc">日本語・英語どちらにも対応可能です<br>サービスの魅力や想いが伝わる<br>自然で読みやすい文章制作を提供します</p>
       </div>
     </div>
   </div>
+
+  <!-- WORKS -->
+  <section class="works-section">
+    <div class="section-title">
+      <span class="en">Works</span>
+      <span class="ja">制作実績</span>
+    </div>
+    <div class="works-list">
+      <div class="work-card">
+        <div class="work-preview" aria-label="和菓子体験スタジオLPのプレビュー">
+          <iframe src="wagashi-landing.html" title="Wagashi Experience LP"></iframe>
+        </div>
+        <div class="work-info">
+          <p class="work-label">LP制作</p>
+          <p class="work-title">和菓子体験スタジオ LP</p>
+          <p class="work-desc">訪日外国人のお客様にも魅力が伝わるよう、日本語・英語の切り替えに対応した体験予約向けランディングページです。</p>
+          <div class="work-tags">
+            <span class="work-tag">LP制作</span>
+            <span class="work-tag">日本語・英語対応</span>
+            <span class="work-tag">インバウンド向け</span>
+          </div>
+          <a class="work-link" href="wagashi-landing.html" target="_blank" rel="noopener">作品を見る</a>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-preview" aria-label="ブランドバッグポスターのプレビュー">
+          <img src="https://lh3.googleusercontent.com/d/1yGIbQS560SAGBHJsMOLA-tgY50aC9npu=w1000" alt="ブランドバッグポスター">
+        </div>
+        <div class="work-info">
+          <p class="work-label">ポスター制作</p>
+          <p class="work-title">ブランドバッグポスター</p>
+          <p class="work-desc">商品の上質さやブランドイメージが伝わるよう、視線を引く構成を意識したポスターデザインです。</p>
+          <div class="work-tags">
+            <span class="work-tag">ポスター制作</span>
+            <span class="work-tag">デザイン制作</span>
+            <span class="work-tag">ブランド訴求</span>
+          </div>
+          <a class="work-link" href="https://drive.google.com/file/d/1yGIbQS560SAGBHJsMOLA-tgY50aC9npu/view" target="_blank" rel="noopener">作品を見る</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- SKILLS -->
 
@@ -670,7 +837,7 @@
   </div>
 
   <!-- AVAILABILITY -->
-  <section>
+  <section class="availability-section">
     <div class="section-title">
       <span class="en">Availability</span>
       <span class="ja">稼働・連絡について</span>
@@ -683,7 +850,10 @@
         <span class="avail-label">返信目安</span>メッセージは15時間以内にご返信いたします
       </div>
       <div class="avail-item">
-        <span class="avail-label">連絡ツール</span>ChatWork・Slack・Zoom
+        <span class="avail-label">対応姿勢</span>現在は本業との兼業になりますが、速やかな対応を心がけております
+      </div>
+      <div class="avail-item">
+        <span class="avail-label">連絡ツール</span>ChatWork・Slack・Zoom・Google Meet
       </div>
       <div class="avail-item">
         <span class="avail-label">納期管理</span>スケジュール管理を徹底し、安心してお任せいただけます
@@ -712,7 +882,7 @@
       <p class="message-text" style="margin-top:16px;">
         一つひとつのご依頼に真摯に向き合い<br>成果につながるご提案と丁寧な対応を大切にしております。<br>どうぞお気軽にご相談ください。
       </p>
-      <p class="message-sign">— Satomi —</p>
+      <p class="message-sign">— Satomi Murayama —</p>
     </div>
   </div>
 
